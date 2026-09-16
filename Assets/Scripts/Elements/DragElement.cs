@@ -28,7 +28,6 @@ public class DragElement : MonoBehaviour
 
         bool isPressed = Pointer.current.press.isPressed;
 
-        // 1. Нажали кнопку
         if (Pointer.current.press.wasPressedThisFrame)
         {
             Vector3 mouseWorldPos = GetMouseWorldPosition();
@@ -72,7 +71,7 @@ public class DragElement : MonoBehaviour
 
             if (_mainCamera == null)
             {
-                _mainCamera = FindFirstObjectByType<Camera>();
+                _mainCamera = FindAnyObjectByType<Camera>();
             }
         }
     }
