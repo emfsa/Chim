@@ -11,6 +11,7 @@ public class ElementSettings : MonoBehaviour
     [SerializeField] private float _elementDensity;
     [SerializeField] private float _elementTemperature;
     [SerializeField] private float _elementMaxTemperature;
+    [SerializeField] private Color _elementColor;
     
 
     public event Action<float> OnTemperatureChanged;
@@ -25,28 +26,41 @@ public class ElementSettings : MonoBehaviour
         if (sub != null)
             InitSubstance(sub, _elementMass, _elementTemperature);
 
+        SpriteRenderer renderer = GetComponent<SpriteRenderer>();
+        renderer.color = _elementColor;
+
     }
 
     
-    public void Init(string elementName, float mass = 1f, float density = 1f, float temperature = 20f, float maxTemperature = 100f) // передаем сюда данные из БД
+    public void Init(string elementName, float mass = 1f, float density = 1f, float temperature = 20f, float maxTemperature = 100f, Color? elementColor = null) 
     {
+        Color finalColor = elementColor ?? Color.white;
+
         _elementName = elementName;
         _elementMass = mass;
         _elementDensity = density;
         _elementTemperature = temperature;
         _elementMaxTemperature = maxTemperature;
+        _elementColor = finalColor;
 
         OnNameChanged?.Invoke(_elementName);
         OnTemperatureChanged?.Invoke(_elementTemperature);
     }
 
-    public void InitSubstance(Substance el, float mass = 1.0f, float temperature = 20.0f) // передаем сюда данные из БД
+    public void InitSubstance(Substance el, float mass = 1.0f, float temperature = 20.0f) 
     {
+        Color finalColor;
+
         _elementName = el.formula;
         _elementMass = mass;
         _elementDensity = el.molar_mass;
         _elementTemperature = temperature;
         _elementMaxTemperature = 100.0f;
+        print(el.color);
+        print(ColorUtility.TryParseHtmlString(el.color, out finalColor));
+        if (ColorUtility.TryParseHtmlString(el.color, out finalColor))
+            _elementColor = finalColor;
+        else _elementColor = Color.white;
 
         OnNameChanged?.Invoke(_elementName);
         OnTemperatureChanged?.Invoke(_elementTemperature);

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CreateElement : MonoBehaviour
 {
-    [SerializeField] private GameObject _legacyCube;
+
     [SerializeField] private DatabaseManager dbManager;
     //public void CreateCube(string elementName/*оставим пока БД не подключим*/)
     //{
@@ -34,7 +34,7 @@ public class CreateElement : MonoBehaviour
     //    }
     //}
 
-    public void CreateCube(Substance Formula, float resmass, float restemperature = 20.0f)
+    public void CreateCube(Substance Formula, float resmass, GameObject _legacyCube, float restemperature = 20.0f)
     {
         print("mass after create");
         print(resmass);
@@ -44,7 +44,7 @@ public class CreateElement : MonoBehaviour
             return;
         }
 
-        GameObject newCube = Instantiate(_legacyCube, Vector3.zero, Quaternion.identity);
+        GameObject newCube = Instantiate(_legacyCube, _legacyCube.transform.position, Quaternion.identity);
 
         DragElement drag = newCube.GetComponent<DragElement>();
         if (drag != null)

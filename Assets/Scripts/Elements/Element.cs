@@ -37,7 +37,7 @@ public class Element: MonoBehaviour
             {
                 print("resMassa");
                 print(float.Parse(result[i]));
-                create.CreateCube(db.GetSubstance(resFormula), float.Parse(result[i]), thisSettings.GetTemperature());
+                create.CreateCube(db.GetSubstance(resFormula), float.Parse(result[i]), gameObject, thisSettings.GetTemperature());
             }
             else
             {
