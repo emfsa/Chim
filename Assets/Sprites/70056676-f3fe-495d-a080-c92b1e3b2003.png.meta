@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 8907cefc43b09c148ba79870f085eb87
+guid: bb10b3dedbfbbda47bb4416a39724b5f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1277019094612856215
-    second: andreas-paul-texture-faked-02_0
+      213: 6515904904841630032
+    second: 70056676-f3fe-495d-a080-c92b1e3b2003_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,23 +100,35 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: andreas-paul-texture-faked-02_0
+      name: 70056676-f3fe-495d-a080-c92b1e3b2003_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1024
-        height: 1024
+        x: 303
+        y: 30
+        width: 418
+        height: 494
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
-      physicsShape: []
-      tessellationDetail: -1
+      physicsShape:
+      - - {x: -175, y: 164}
+        - {x: -159, y: 137}
+        - {x: -162, y: -194}
+        - {x: 186, y: -191}
+        - {x: 189, y: 171}
+        - {x: 200, y: 205}
+        - {x: 182, y: 192}
+        - {x: 180, y: -184}
+        - {x: -148, y: -183}
+        - {x: -151, y: 143}
+        - {x: -182, y: 182}
+        - {x: -203, y: 176}
+      tessellationDetail: 0
       bones: []
-      spriteID: 962b53e36ed174ee0800000000000000
-      internalID: -1277019094612856215
+      spriteID: 0519f4bfcf42d6a50800000000000000
+      internalID: 6515904904841630032
       vertices: []
       indices: 
       edges: []
@@ -125,7 +137,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: d359ac53a025983418ed3eae4ef0c1f5
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +147,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      andreas-paul-texture-faked-02_0: -1277019094612856215
+      70056676-f3fe-495d-a080-c92b1e3b2003_0: 6515904904841630032
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

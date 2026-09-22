@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 9f8129d3d2c94054d9f7a8ca37edc745
+guid: c0de4be3a24a485488b57381a2cb066a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -441958876239421986
-    second: fd5c84e163aa40b525bf6a5f474ad726_0
+      213: 6852807606696596716
+    second: istockphoto-1191661328-612x612_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: fd5c84e163aa40b525bf6a5f474ad726_0
+      name: istockphoto-1191661328-612x612_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1024
-        height: 1024
+        width: 612
+        height: 421
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: edd1b606eb8ddd9f0800000000000000
-      internalID: -441958876239421986
+      spriteID: ce4de37e5301a1f50800000000000000
+      internalID: 6852807606696596716
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      fd5c84e163aa40b525bf6a5f474ad726_0: -441958876239421986
+      istockphoto-1191661328-612x612_0: 6852807606696596716
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
