@@ -43,7 +43,7 @@ public class DragElement : MonoBehaviour
         if (_isDragging && isPressed)
         {
             Vector3 targetPosition = GetMouseWorldPosition() + _offset;
-            targetPosition.z = transform.position.z; 
+            targetPosition.z = transform.position.z;
             transform.position = targetPosition;
         }
 

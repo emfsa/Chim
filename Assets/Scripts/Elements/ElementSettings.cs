@@ -8,17 +8,20 @@ public class ElementSettings : MonoBehaviour
     [Header("Параметры элемента")]
     [SerializeField] private string _elementName;
     [SerializeField] private float _elementMass;
+    [SerializeField] private float _elementMolar;
     [SerializeField] private float _elementDensity;
     [SerializeField] private float _elementTemperature;
-    [SerializeField] private float _elementMaxTemperature;
     [SerializeField] private Color _elementColor;
-    
+    [SerializeField] private string _elementState;
+
 
     public event Action<float> OnTemperatureChanged;
     public event Action<string> OnNameChanged;
 
     private void Start()
     {
+        OnTemperatureChanged += HandleTemperatureChanged;
+
         OnNameChanged?.Invoke(_elementName);
         OnTemperatureChanged?.Invoke(_elementTemperature);
 
@@ -32,7 +35,7 @@ public class ElementSettings : MonoBehaviour
     }
 
     
-    public void Init(string elementName, float mass = 1f, float density = 1f, float temperature = 20f, float maxTemperature = 100f, Color? elementColor = null) 
+    public void Init(string elementName, float mass = 1f, float density = 1f, float temperature = 20f, Color? elementColor = null, float molar_mass = 1, string elementState = "solid") 
     {
         Color finalColor = elementColor ?? Color.white;
 
@@ -40,11 +43,11 @@ public class ElementSettings : MonoBehaviour
         _elementMass = mass;
         _elementDensity = density;
         _elementTemperature = temperature;
-        _elementMaxTemperature = maxTemperature;
         _elementColor = finalColor;
-
-        OnNameChanged?.Invoke(_elementName);
+        _elementMolar = molar_mass;
+        _elementState = elementState;
         OnTemperatureChanged?.Invoke(_elementTemperature);
+        OnNameChanged?.Invoke(_elementName);
     }
 
     public void InitSubstance(Substance el, float mass = 1.0f, float temperature = 20.0f) 
@@ -53,30 +56,32 @@ public class ElementSettings : MonoBehaviour
 
         _elementName = el.formula;
         _elementMass = mass;
-        _elementDensity = el.molar_mass;
+        _elementDensity = el.density;
         _elementTemperature = temperature;
-        _elementMaxTemperature = 100.0f;
-        print(el.color);
-        print(ColorUtility.TryParseHtmlString(el.color, out finalColor));
+        _elementMolar = el.molar_mass;
+        _elementState = "solid";
+
         if (ColorUtility.TryParseHtmlString(el.color, out finalColor))
             _elementColor = finalColor;
         else _elementColor = Color.white;
 
-        OnNameChanged?.Invoke(_elementName);
         OnTemperatureChanged?.Invoke(_elementTemperature);
+        OnNameChanged?.Invoke(_elementName);
     }
 
     public void AddTemperature(float amount)
     {
-        if (_elementTemperature < _elementMaxTemperature)
-        {
-            _elementTemperature = Mathf.Min(_elementTemperature + amount, _elementMaxTemperature);
-            OnTemperatureChanged?.Invoke(_elementTemperature);
-        }
+        _elementTemperature = _elementTemperature + amount;
+        OnTemperatureChanged?.Invoke(_elementTemperature);
+    }
+
+    public void SetTemperature(float amount)
+    {
+        _elementTemperature = amount;
+        OnTemperatureChanged?.Invoke(_elementTemperature);
     }
 
     public float GetTemperature() => _elementTemperature;
-    public float GetMaxTemperature() => _elementMaxTemperature;
     public string GetName() => _elementName;
     public float GetMass() => _elementMass;
 
@@ -96,6 +101,29 @@ public class ElementSettings : MonoBehaviour
         if (_elementMass <= 0f)
         {
             Destroy(gameObject);
+        }
+    }
+
+    private void HandleTemperatureChanged(float temperature)
+    {
+        Substance el = dbManager.GetSubstance(_elementName);
+
+
+        if (temperature < el.melt_temp)
+        {
+            _elementState = "solid";
+            GetComponent<Rigidbody2D>().gravityScale = 1;
+        }
+        else if (temperature > el.boil_temp)
+        {
+            _elementState = "gas";
+            if (dbManager.GetSubstance(_elementName).molar_mass < 29) GetComponent<Rigidbody2D>().gravityScale = -1;
+        }
+        else
+        {
+            _elementState = "liquid";
+            GetComponent<Rigidbody2D>().gravityScale = 1;
+
         }
     }
 }

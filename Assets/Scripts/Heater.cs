@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Heater : MonoBehaviour
 {
-    [SerializeField] private float _heatSpeed = 10f; 
+    [SerializeField] private float _heatSpeed = 5f; 
     [SerializeField] private float _timeInterval = 0.5f;
 
     private Dictionary<ElementSettings, Coroutine> _activeCoroutines = new Dictionary<ElementSettings, Coroutine>();

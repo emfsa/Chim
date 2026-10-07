@@ -9,42 +9,49 @@ public class ChemistryCalculator : MonoBehaviour
 {
     public DatabaseManager dbManager;
 
-    public string Process(string[] reactants, float[] masses)
+    public string Process(string[] reactants, float[] masses, float[] temperatures)
     {
         Reaction reaction = dbManager.FindReaction(reactants);
-        if (reaction == null) { return "Реакция не найдена"; }
+        if (reaction == null) { return ""; }
 
         int[] rCoeffs = reaction.reactantcoeffs.Split(',').Select(int.Parse).ToArray();
-        print(rCoeffs[0].ToString() + rCoeffs[1].ToString());
         string[] rFormula = reaction.reactants.Split(',');
-        print(reaction.reactants);
         float minMolesReaction = float.MaxValue;
 
-        //for (int i = 0; i < reactants.Length; i++)
-        //{
-        //    Substance sub = dbManager.GetSubstance(reactants[i]);
-        //    print(sub.molar_mass);
-        //    float rmoles = masses[i] / sub.molar_mass;
-        //    print(rmoles);
-        //    int rcoeff = rCoeffs[System.Array.IndexOf(rFormula, reactants[i])];
+        float all_hc = 0;
+        float Q = reaction.em_temperature;
 
-        //    print(rcoeff);
+        for (int i = 0; i < reactants.Length; i++)
+        {
+            if (reaction.catalyst == null) break;
+            string[] catalyst = reaction.catalyst.Split(',');
+            string form = reactants[i];
+            if (form == catalyst[0]) 
+            {
+                reactants = reactants[0..i];
+                rCoeffs = rCoeffs[0..i];
+                rFormula = rFormula[0..i];
+                break;
+            }
+        }
 
-        //    float reactionmoles = rmoles / rCoeffs[rcoeff-1];
 
-        //    if (reactionmoles < minMolesReaction) minMolesReaction = reactionmoles;
-        //}
 
         for (int i = 0; i < reactants.Length; i++)
         {
             Substance sub = dbManager.GetSubstance(reactants[i]);
-            print(sub.molar_mass);
+            all_hc += sub.heat_cap * rCoeffs[i];
+            Q += (temperatures[i]+273) * sub.heat_cap * rCoeffs[i];
+        }
+
+        if (Q/all_hc - 273 < reaction.min_temperature)
+            return "";
+
+        for (int i = 0; i < reactants.Length; i++)
+        {
+            Substance sub = dbManager.GetSubstance(reactants[i]);
             float rmoles = masses[i] / sub.molar_mass;
-            print(rmoles);
             int rcoeff = rCoeffs[System.Array.IndexOf(rFormula, reactants[i])];
-
-            print(rcoeff);
-
             float reactionmoles = rmoles / rcoeff;
 
             if (reactionmoles < minMolesReaction) minMolesReaction = reactionmoles;
@@ -73,6 +80,8 @@ public class ChemistryCalculator : MonoBehaviour
             float mass = sub.molar_mass * minMolesReaction * rCoeffs[i];
             result += Convert.ToString(mass) + ";";
         }
+
+        result = "temperature;" + Convert.ToString(Q/all_hc-273) + ";" + result;
 
         print(result);
         return result;
