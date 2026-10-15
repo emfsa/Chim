@@ -24,11 +24,11 @@ MonoBehaviour:
     m_path: Assets/Scenes/Menu.unity
     m_guid: 8c9cfa26abfee488c85f1582747f6a02
   - m_enabled: 1
-    m_path: Assets/Scenes/Learning.unity
-    m_guid: ff4b37c98cf394449b4f884d94a5804a
-  - m_enabled: 1
     m_path: Assets/Scenes/Tests.unity
     m_guid: a6aab83e9c1040143a2ef102a28c744b
+  - m_enabled: 1
+    m_path: Assets/Scenes/18.unity
+    m_guid: 8fa2a1c0a61e0234aae4d0c321f943ee
   m_HasScriptingDefines: 0
   m_ScriptingDefines: []
   m_PlayerSettingsYaml:
