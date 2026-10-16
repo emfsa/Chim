@@ -19,7 +19,7 @@ public class ChemistryCalculator : MonoBehaviour
         float minMolesReaction = float.MaxValue;
 
         float all_hc = 0;
-        float Q = reaction.em_temperature;
+        float Q = reaction.em_temperature*1000;
 
         for (int i = 0; i < reactants.Length; i++)
         {
