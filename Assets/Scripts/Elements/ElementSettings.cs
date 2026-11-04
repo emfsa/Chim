@@ -8,8 +8,6 @@ public class ElementSettings : MonoBehaviour
     [Header("Параметры элемента")]
     [SerializeField] private string _elementName;
     [SerializeField] private float _elementMass;
-    [SerializeField] private float _elementMolar;
-    [SerializeField] private float _elementDensity;
     [SerializeField] private float _elementTemperature;
     [SerializeField] private Color _elementColor;
     [SerializeField] private string _elementState;
@@ -35,16 +33,14 @@ public class ElementSettings : MonoBehaviour
     }
 
     
-    public void Init(string elementName, float mass = 1f, float density = 1f, float temperature = 20f, Color? elementColor = null, float molar_mass = 1, string elementState = "solid") 
+    public void Init(string elementName, float mass = 1f, float temperature = 20f, Color? elementColor = null, string elementState = "solid") 
     {
         Color finalColor = elementColor ?? Color.white;
 
         _elementName = elementName;
         _elementMass = mass;
-        _elementDensity = density;
         _elementTemperature = temperature;
         _elementColor = finalColor;
-        _elementMolar = molar_mass;
         _elementState = elementState;
         OnTemperatureChanged?.Invoke(_elementTemperature);
         OnNameChanged?.Invoke(_elementName);
@@ -56,12 +52,10 @@ public class ElementSettings : MonoBehaviour
 
         _elementName = el.formula;
         _elementMass = mass;
-        _elementDensity = el.density;
         _elementTemperature = temperature;
-        _elementMolar = el.molar_mass;
         _elementState = "solid";
 
-        if (ColorUtility.TryParseHtmlString(el.color, out finalColor))
+        if (ColorUtility.TryParseHtmlString(dbManager.GetColor(el.formula, "solid"), out finalColor))
             _elementColor = finalColor;
         else _elementColor = Color.white;
 
@@ -117,7 +111,7 @@ public class ElementSettings : MonoBehaviour
         else if (temperature > el.boil_temp)
         {
             _elementState = "gas";
-            if (dbManager.GetSubstance(_elementName).molar_mass < 29) GetComponent<Rigidbody2D>().gravityScale = -1;
+            if (dbManager.GetMolarMass(dbManager.GetSubstance(_elementName).formula) < 29) GetComponent<Rigidbody2D>().gravityScale = -1;
         }
         else
         {

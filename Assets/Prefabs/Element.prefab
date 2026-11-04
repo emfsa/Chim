@@ -402,6 +402,7 @@ GameObject:
   - component: {fileID: 5858485535515628288}
   - component: {fileID: 2066353652878461611}
   - component: {fileID: 4191562640081379511}
+  - component: {fileID: 2920237093450142538}
   m_Layer: 0
   m_Name: Element
   m_TagString: Element
@@ -543,11 +544,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6adbb8246098082449fbb6d5a211fed4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ElementSettings
+  dbManager: {fileID: 0}
   _elementName: 
   _elementMass: 0
-  _elementDensity: 0
   _elementTemperature: 0
-  _elementMaxTemperature: 0
+  _elementColor: {r: 0, g: 0, b: 0, a: 0}
+  _elementState: 
 --- !u!114 &2066353652878461611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -569,7 +571,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6699979712456256518}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -586,5 +588,20 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 2
+--- !u!114 &2920237093450142538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6699979712456256518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0c29c3a17c4ddc40a73583cd58fabe9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Element
+  calculator: {fileID: 0}
+  db: {fileID: 0}
+  create: {fileID: 0}
